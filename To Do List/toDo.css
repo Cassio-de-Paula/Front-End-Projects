@@ -230,6 +230,31 @@ i {
   align-items: center;
 }
 
+/* Search Result area */
+
+.search-result {
+  display: grid;
+  justify-content: center;
+  width: 350px;
+  height: 450px;
+  background-color: rgb(45, 45, 45);
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  color: whitesmoke;
+}
+
+.search-result-container {
+  display: grid;
+  align-items: start;
+  height: max-content;
+}
+
+.not-found-message {
+  align-self: center;
+}
+
+/* Animations */
+
 .showing,
 .hidden {
   position: absolute;

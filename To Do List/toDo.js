@@ -16,6 +16,16 @@ const listBtn = document
     clearList(ev);
     showTaskList(ev);
   });
+const searchBar = document.querySelector(".search-input");
+const searchResultScreen = document.querySelector(".search-result");
+const searchResultContainer = document.querySelector(
+  ".search-result-container"
+);
+const searchBtn = document
+  .querySelector(".search-btn")
+  .addEventListener("click", (ev) => {
+    renderSearchList(ev);
+  });
 
 const taskArray = [];
 
@@ -35,8 +45,8 @@ function newTask(ev) {
   var today = new Date();
   var taskDateValue = new Date(taskDate.value);
 
-  if (taskDateValue <= today) {
-    alert("Favor Inserir uma data válida!");
+  if (taskDateValue < today || taskDate.value == "" || taskName.value == "") {
+    alert("Por favor, confira os campos e nome e data da tarefa.");
   } else {
     task = new Task(taskName.value, taskDate.value);
     taskArray.push(task);
@@ -103,6 +113,12 @@ function showTaskList(ev) {
     checkSign.id = `check-sign-${taskIndex}`;
     checkTaskBtn.appendChild(checkSign);
 
+    if (taskArray[taskIndex].taskStatus === "Concluída") {
+      taskTextContainer.classList.add("done");
+      checkTaskBtn.classList.add("checked");
+    } else {
+    }
+
     const removeTaskBtn = document.createElement("button");
     removeTaskBtn.addEventListener("click", removeTask);
     removeTaskBtn.className = "tool-btn remove-task-btn";
@@ -125,7 +141,6 @@ function showTaskList(ev) {
     hr.id = `hr-${taskIndex}`;
     hr.className = "task-hr";
 
-    btnContainer.append(homeBtn);
     taskToolsContainer.append(checkTaskBtn, removeTaskBtn, editTaskBtn);
     taskTextContainer.append(taskTitle, taskDateSpan);
     taskContainer.append(taskTextContainer, taskToolsContainer);
@@ -133,6 +148,7 @@ function showTaskList(ev) {
     tasksContainer.appendChild(hr);
   });
 
+  btnContainer.append(homeBtn);
   taskList.appendChild(tasksContainer);
   taskList.append(btnContainer);
 
@@ -140,14 +156,17 @@ function showTaskList(ev) {
   toDoContainer.classList.remove("showing");
 }
 
-function home(ev) {
-  ev.preventDefault();
-
-  const taskElement = document.querySelectorAll(".task-element");
-  const hrElement = document.querySelectorAll(".task-hr");
-
-  taskList.classList.add("hidden");
-  taskList.classList.remove("showing");
+function home() {
+  if (taskList.classList.contains("showing")) {
+    taskList.classList.add("hidden");
+    taskList.classList.remove("showing");
+    clearList();
+  } else if (searchResultScreen.classList.contains("showing")) {
+    searchResultScreen.classList.add("hidden");
+    searchResultScreen.classList.remove("showing");
+    clearList();
+  } else {
+  }
 
   toDoContainer.classList.add("showing");
   toDoContainer.classList.remove("hidden");
@@ -290,9 +309,138 @@ function confirmTaskChanges(ev) {
   showTaskList(ev);
 }
 
-function clearList(ev) {
-  ev.preventDefault();
-
+function clearList() {
   taskList.innerHTML = "";
   tasksContainer.innerHTML = "";
+
+  searchResultScreen.innerHTML = "";
+  searchResultContainer.innerHTML = "";
+}
+
+function searchTask(name) {
+  const resultArray = taskArray.filter((task) => {
+    return task.taskName === name;
+  });
+
+  console.log(resultArray);
+
+  return resultArray;
+}
+
+function renderSearchList(ev) {
+  ev.preventDefault();
+  var taskName = searchBar.value;
+
+  const searchResult = searchTask(taskName);
+
+  const btnContainer = document.createElement("div");
+  btnContainer.className = "home-btn-container";
+
+  searchResultScreen.classList.add("showing");
+  searchResultScreen.classList.remove("hidden");
+
+  const homeBtn = document.createElement("button");
+  homeBtn.className = "home-btn";
+  homeBtn.innerText = "VOLTAR Á TELA INICIAL";
+  homeBtn.addEventListener("click", home);
+
+  if (searchResult.length > 0) {
+    taskArray.filter((task, index) => {
+      if (taskArray[index].taskName === taskName) {
+        const taskContainer = document.createElement("div");
+        taskContainer.className = "task-element";
+        taskContainer.id = `task-${index}`;
+
+        var taskTitle = document.createElement("span");
+        taskTitle.className = "task-title";
+
+        var taskDateSpan = document.createElement("span");
+        taskDateSpan.className = "task-date";
+
+        const taskTextContainer = document.createElement("div");
+        taskTextContainer.className = "task-info";
+        taskTextContainer.id = `info-${index}`;
+
+        const checkTaskBtn = document.createElement("button");
+        checkTaskBtn.addEventListener("click", checkTask);
+        checkTaskBtn.className = "tool-btn check-task-btn";
+        checkTaskBtn.id = `check-${index}`;
+        const checkSign = document.createElement("i");
+        checkSign.className = "fa-solid fa-check";
+        checkSign.id = `check-sign-${index}`;
+        checkTaskBtn.appendChild(checkSign);
+
+        if (taskArray[index].taskStatus === "Concluída") {
+          taskTextContainer.classList.add("done");
+          checkTaskBtn.classList.add("checked");
+        } else {
+        }
+
+        const taskToolsContainer = document.createElement("div");
+        taskToolsContainer.className = "btn-container";
+
+        const removeTaskBtn = document.createElement("button");
+        removeTaskBtn.addEventListener("click", removeTask);
+        removeTaskBtn.className = "tool-btn remove-task-btn";
+        removeTaskBtn.id = `remove-${index}`;
+        const removeSign = document.createElement("i");
+        removeSign.className = "fa-solid fa-trash-can";
+        removeSign.id = `remove-sign-${index}`;
+        removeTaskBtn.appendChild(removeSign);
+
+        const editTaskBtn = document.createElement("button");
+        editTaskBtn.addEventListener("click", editTask);
+        editTaskBtn.className = "tool-btn edit-task-btn";
+        editTaskBtn.id = `edit-${index}`;
+        const editSign = document.createElement("i");
+        editSign.className = "fa-regular fa-pencil";
+        editSign.id = `edit-sign-${index}`;
+        editTaskBtn.appendChild(editSign);
+
+        const hr = document.createElement("hr");
+        hr.id = `hr-${index}`;
+        hr.className = "task-hr";
+
+        taskToolsContainer.append(checkTaskBtn, removeTaskBtn, editTaskBtn);
+        taskTextContainer.append(taskTitle, taskDateSpan);
+        taskContainer.append(taskTextContainer, taskToolsContainer);
+        searchResultContainer.append(taskContainer);
+        searchResultContainer.appendChild(hr);
+      } else {
+      }
+    });
+    searchResult.map(() => {
+      const titleArray = document.querySelectorAll(".task-title");
+      const dateArray = document.querySelectorAll(".task-date");
+
+      for (let i = 0; i < titleArray.length; i++) {
+        titleArray[i].innerText = searchResult[i].taskName;
+      }
+      for (let i = 0; i < titleArray.length; i++) {
+        dateArray[i].innerText = dateFormat(searchResult[i].taskDate);
+      }
+    });
+    btnContainer.appendChild(homeBtn);
+    searchResultScreen.appendChild(searchResultContainer);
+    searchResultScreen.append(btnContainer);
+
+    toDoContainer.classList.add("hidden");
+    toDoContainer.classList.remove("showing");
+  } else {
+    const notFoundMessage = document.createElement("div");
+    notFoundMessage.className = "not-found-message";
+    notFoundMessage.innerText = "Nenhuma tarefa corresponde a sua pesquisa.";
+
+    btnContainer.appendChild(homeBtn);
+    searchResultContainer.append(notFoundMessage);
+    searchResultScreen.appendChild(searchResultContainer);
+    searchResultScreen.append(btnContainer);
+
+    toDoContainer.classList.add("hidden");
+    toDoContainer.classList.remove("showing");
+  }
+
+  searchBar.value = "";
+
+  console.log(taskArray);
 }
