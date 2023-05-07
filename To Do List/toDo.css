@@ -1,0 +1,247 @@
+/* Google Fonts */
+@import "https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Roboto:wght@100&display=swap";
+
+/* General settings */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto";
+}
+
+/* Containers */
+body,
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(21, 21, 21);
+}
+
+.to-do-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 450px;
+  background-color: rgb(45, 45, 45);
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  color: whitesmoke;
+}
+
+.container {
+  height: 450px;
+  width: 320px;
+  position: relative;
+  perspective: 1000px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-item {
+  display: grid;
+  align-items: center;
+  text-align: center;
+}
+
+.to-do-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.input-container {
+  display: grid;
+  align-items: center;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.list-btn-container {
+  display: grid;
+  justify-content: center;
+}
+
+/* Buttons */
+.add-item-btn {
+  height: 4rem;
+  width: 2.5rem;
+  background-color: rgb(34, 34, 34);
+  border-radius: 10px;
+}
+
+.search-btn,
+.tool-btn {
+  height: 1.5rem;
+  width: 2.2rem;
+  background-color: rgb(34, 34, 34);
+  border-radius: 10px;
+}
+
+.list-btn,
+.home-btn,
+.confirm-edit-btn,
+.edit-to-list-btn {
+  height: 2rem;
+  width: fit-content;
+  background-color: rgb(34, 34, 34);
+  color: whitesmoke;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  justify-self: center;
+}
+
+.confirm-edit-btn {
+  align-self: self-end;
+}
+
+.checked {
+  background-color: green;
+  border: whitesmoke;
+}
+
+input {
+  height: 2rem;
+  font-size: 1rem;
+  margin-right: 10px;
+  background-color: rgb(19, 19, 19);
+  color: whitesmoke;
+}
+
+button:hover {
+  cursor: pointer;
+  border: 2px solid whitesmoke;
+  transition: 0.8s;
+}
+
+/* Text */
+.list-title,
+.edit-area-title {
+  display: grid;
+  justify-content: center;
+  justify-self: center;
+  height: fit-content;
+  padding: 10px;
+  color: whitesmoke;
+  font-weight: bold;
+}
+
+/* Task-list */
+
+.task-list {
+  display: grid;
+  justify-content: center;
+  width: 350px;
+  height: 450px;
+  background-color: rgb(45, 45, 45);
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  color: whitesmoke;
+}
+
+.task-element {
+  display: flex;
+  justify-content: space-around;
+  width: 350px;
+  height: fit-content;
+}
+
+.task-info {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.task-title {
+  width: 100px;
+}
+
+.task-tools-container {
+  width: 100px;
+}
+
+.btn-container {
+  width: 150px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+hr {
+  color: whitesmoke;
+  width: 100%;
+}
+
+i {
+  color: whitesmoke;
+}
+
+.home-btn-container {
+  display: grid;
+  align-items: center;
+  align-self: self-end;
+  justify-content: center;
+  height: 2rem;
+  margin-bottom: 15px;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+/* edit area */
+.edit-area-container {
+  display: grid;
+  justify-content: center !important;
+  width: 320px;
+  height: 450px;
+  background-color: rgb(45, 45, 45);
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  color: whitesmoke;
+}
+
+.edit-input-container {
+  display: grid;
+  align-self: center;
+  justify-content: center;
+}
+
+.edit-name-input,
+.edit-date-input {
+  width: 200px;
+  margin-top: 10px;
+}
+
+.edit-btn-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.showing,
+.hidden {
+  position: absolute;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: all 1s ease;
+}
+
+.showing {
+  transform: rotateY(0deg);
+}
+
+.hidden {
+  transform: rotateY(180deg);
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do list</title>
+    <!-- CSS link -->
+    <link rel="stylesheet" href="toDo.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- JS link -->
+    <script src="toDo.js" defer></script>
+  </head>
+  <body>
+    <div class="main-container" id="main-container">
+      <div class="container">
+        <div class="to-do-container showing">
+          <span class="list-title">TO DO LIST</span>
+          <form class="add-item" id="add-task">
+            <div class="to-do-input-container">
+              <div class="input-container">
+                <input
+                  type="text"
+                  class="to-do-input"
+                  id="task-name"
+                  placeholder=" Adicione uma tarefa"
+                />
+                <input type="date" class="date" id="task-date" />
+              </div>
+
+              <button type="submit" class="add-item-btn">
+                <i
+                  class="fa-solid fa-plus"
+                  style="font-size: 15px; color: whitesmoke"
+                ></i>
+              </button>
+            </div>
+          </form>
+          <form class="search-item">
+            <div class="search-input-container">
+              <input
+                type="text"
+                class="search-input"
+                placeholder=" Pesquisar"
+              />
+              <button type="submit" class="search-btn">
+                <i
+                  class="fa fa-search"
+                  style="font-size: 15px; color: whitesmoke"
+                ></i>
+              </button>
+            </div>
+          </form>
+          <div class="list-btn-container">
+            <button class="list-btn" id="list-btn">
+              MINHA LISTA DE TAREFAS
+            </button>
+          </div>
+        </div>
+        <div class="task-list hidden">
+          <div class="tasks-container"></div>
+        </div>
+        <div class="edit-area-container hidden">
+          <span class="edit-area-title">MODO DE EDIÇÃO</span>
+          <div class="edit-input-container">
+            <input type="text" class="edit-name-input" />
+            <input type="date" class="edit-date-input" />
+          </div>
+          <div class="edit-btn-container">
+            <button class="confirm-edit-btn">CONFIRMAR</button>
+            <button class="edit-to-list-btn">VOLTAR À LISTA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
