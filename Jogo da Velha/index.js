@@ -112,24 +112,26 @@ const checkForWin = (currentPlayer) => {
 
 const findWinnerIndex = (currentPlayer) => {
   const cellElements = document.querySelectorAll("[data-cell]");
-  return winningCombinations.findIndex(() => {
-    return winningCombinations.some((combination) => {
-      return combination.every((index) => {
-        return cellElements[index].classList.contains(currentPlayer);
-      });
+  return winningCombinations.findIndex((combination) => {
+    return combination.every((index) => {
+      return cellElements[index].classList.contains(currentPlayer);
     });
   });
 };
 
-const setWinnerClass = (winningCombinationsIndex) => {
+function setWinnerClass(winningCombinationsIndex) {
   const cellElements = document.querySelectorAll("[data-cell]");
   for (let i = 0; i < 9; i++) {
-    let cell = cellElements[i];
-    var cellId = cell.id.slice(-1);
+    var cell = cellElements[i];
   }
 
-  console.log(winningCombinations[winningCombinationsIndex]);
-};
+  winningCombinations[winningCombinationsIndex].map((index) => {
+    if (cell.id.slice(-1) === index) {
+      console.log(cell);
+      cell.classList.add("winner");
+    }
+  });
+}
 
 const checkforDraw = (isWinner, cont) => {
   if (cont > 8 && isWinner == false) {
@@ -139,7 +141,7 @@ const checkforDraw = (isWinner, cont) => {
   }
 };
 
-function winnerScreen(cell) {
+async function winnerScreen(cell) {
   const winnerScreenDiv = document.createElement("div");
   winnerScreenDiv.classList = "winner-screen";
 
@@ -252,6 +254,7 @@ function handleClick(e) {
   const winnerIndex = findWinnerIndex(classToAdd);
   if (winnerIndex > -1) {
     setWinnerClass(winnerIndex);
+  } else {
   }
 
   // verify draw
@@ -259,7 +262,9 @@ function handleClick(e) {
 
   // game over screen
   if (isWinner) {
-    winnerScreen(cell);
+    setTimeout(() => {
+      winnerScreen(cell);
+    }, 3000);
   } else if (isDraw) {
     drawScreen(cell);
   } else {
