@@ -13,7 +13,6 @@ const taskDate = document.querySelector("#task-date");
 const listBtn = document
   .querySelector("#list-btn")
   .addEventListener("click", (ev) => {
-    clearList(ev);
     showTaskList(ev);
   });
 const searchBar = document.querySelector(".search-input");
@@ -165,7 +164,6 @@ function home() {
     searchResultScreen.classList.add("hidden");
     searchResultScreen.classList.remove("showing");
     clearList();
-  } else {
   }
 
   toDoContainer.classList.add("showing");
@@ -212,8 +210,13 @@ function removeTask(ev) {
   const selectedTask = document.querySelector(`#task-${taskId}`);
   const hr = document.querySelector(`#hr-${taskId}`);
 
-  tasksContainer.removeChild(selectedTask);
-  tasksContainer.removeChild(hr);
+  if(tasksContainer.contains(selectedTask)){
+    tasksContainer.removeChild(selectedTask);
+    tasksContainer.removeChild(hr);
+  } else if (searchResultContainer.contains(selectedTask)){
+    searchResultContainer.removeChild(selectedTask);
+    searchResultContainer.removeChild(hr);
+  }
 
   for (let i = 0; i < taskArray.length; i++) {
     let taskHrList = document.querySelectorAll(".task-hr");
@@ -246,8 +249,13 @@ function editTask(ev) {
   editAreaContainer.classList.add("showing");
   editAreaContainer.classList.remove("hidden");
 
-  taskList.classList.add("hidden");
-  taskList.classList.remove("showing");
+  if(taskList.classList.contains('showing')){
+    taskList.classList.add("hidden");
+    taskList.classList.remove("showing");
+  } else if (searchResultScreen.classList.contains('showing')){
+    searchResultScreen.classList.add("hidden");
+    searchResultScreen.classList.remove("showing");
+  }
 
   const listBtn = document
     .querySelector(".edit-to-list-btn")
@@ -310,11 +318,12 @@ function confirmTaskChanges(ev) {
 }
 
 function clearList() {
-  taskList.innerHTML = "";
-  tasksContainer.innerHTML = "";
+    taskList.innerHTML = "";
+    tasksContainer.innerHTML = ""
+    
+    searchResultScreen.innerHTML = "";
+    searchResultContainer.innerHTML = "";
 
-  searchResultScreen.innerHTML = "";
-  searchResultContainer.innerHTML = "";
 }
 
 function searchTask(name) {
@@ -333,11 +342,10 @@ function renderSearchList(ev) {
 
   const searchResult = searchTask(taskName);
 
+  console.log(searchResult)
+
   const btnContainer = document.createElement("div");
   btnContainer.className = "home-btn-container";
-
-  searchResultScreen.classList.add("showing");
-  searchResultScreen.classList.remove("hidden");
 
   const homeBtn = document.createElement("button");
   homeBtn.className = "home-btn";
@@ -373,7 +381,6 @@ function renderSearchList(ev) {
         if (taskArray[index].taskStatus === "Concluída") {
           taskTextContainer.classList.add("done");
           checkTaskBtn.classList.add("checked");
-        } else {
         }
 
         const taskToolsContainer = document.createElement("div");
@@ -406,13 +413,19 @@ function renderSearchList(ev) {
         taskContainer.append(taskTextContainer, taskToolsContainer);
         searchResultContainer.append(taskContainer);
         searchResultContainer.appendChild(hr);
-      } else {
+        btnContainer.appendChild(homeBtn);
+        searchResultScreen.appendChild(searchResultContainer);
+        searchResultScreen.append(btnContainer);
       }
     });
+
+
     searchResult.map(() => {
       const titleArray = document.querySelectorAll(".task-title");
       const dateArray = document.querySelectorAll(".task-date");
 
+      console.log(titleArray)
+      console.log(dateArray)
       for (let i = 0; i < titleArray.length; i++) {
         titleArray[i].innerText = searchResult[i].taskName;
       }
@@ -420,9 +433,6 @@ function renderSearchList(ev) {
         dateArray[i].innerText = dateFormat(searchResult[i].taskDate);
       }
     });
-    btnContainer.appendChild(homeBtn);
-    searchResultScreen.appendChild(searchResultContainer);
-    searchResultScreen.append(btnContainer);
 
     toDoContainer.classList.add("hidden");
     toDoContainer.classList.remove("showing");
@@ -439,7 +449,8 @@ function renderSearchList(ev) {
     toDoContainer.classList.add("hidden");
     toDoContainer.classList.remove("showing");
   }
-
+  searchResultScreen.classList.remove("hidden");
+  searchResultScreen.classList.add("showing");
   searchBar.value = "";
 
   console.log(taskArray);
