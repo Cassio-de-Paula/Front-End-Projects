@@ -9,6 +9,10 @@
   font-family: "Roboto";
 }
 
+body {
+  background-image: url('/imgs/1243346.png') !important;
+}
+
 /* Containers */
 body,
 .main-container {
@@ -17,7 +21,6 @@ body,
   display: grid;
   align-items: center;
   justify-content: center;
-  background-color: rgb(21, 21, 21);
 }
 
 .to-do-container {
@@ -26,15 +29,14 @@ body,
   justify-content: center;
   width: 320px;
   height: 450px;
-  background-color: rgb(45, 45, 45);
-  border: 2px solid whitesmoke;
   border-radius: 10px;
+  border: 2px solid whitesmoke;
   color: whitesmoke;
 }
 
 .container {
   height: 450px;
-  width: 320px;
+  width: 350px;
   position: relative;
   perspective: 1000px;
   display: grid;
@@ -141,12 +143,16 @@ button:hover {
 .task-list {
   display: grid;
   justify-content: center;
-  width: 350px;
+  width: 380px;
   height: 450px;
   background-color: rgb(45, 45, 45);
   border: 2px solid whitesmoke;
   border-radius: 10px;
   color: whitesmoke;
+}
+
+.tasks-container {
+  overflow-y: scroll;
 }
 
 .task-element {
@@ -194,6 +200,7 @@ i {
   justify-content: center;
   height: 2rem;
   margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .done {
@@ -204,7 +211,7 @@ i {
 .edit-area-container {
   display: grid;
   justify-content: center !important;
-  width: 320px;
+  width: 350px;
   height: 450px;
   background-color: rgb(45, 45, 45);
   border: 2px solid whitesmoke;
@@ -223,6 +230,17 @@ i {
   width: 200px;
   margin-top: 10px;
 }
+
+.remove-task-btn:hover {
+  background-color: red;
+  transition: 0.5s ease;
+}
+
+.check-task-btn:hover {
+  background-color: green;
+  transition: 0.5s ease;
+}
+
 
 .edit-btn-container {
   display: grid;
@@ -247,6 +265,7 @@ i {
   display: grid;
   align-items: start;
   height: max-content;
+  overflow-y: scroll;
 }
 
 .not-found-message {
@@ -270,3 +289,25 @@ i {
 .hidden {
   transform: rotateY(180deg);
 }
+
+/* glass effect */
+
+.to-do-container,
+.edit-area-container,
+.search-result, .task-list {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.35);
+}
+
+/* scrollbar */
+
+html ::-webkit-scrollbar{
+  width: 7px;
+}
+/* html ::-webkit-scrollbar-thumb{
+  width: 3px;
+}
+html ::-webkit-scrollbar{
+  width: 3px;
+} */
+

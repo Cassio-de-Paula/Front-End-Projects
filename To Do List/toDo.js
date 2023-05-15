@@ -400,7 +400,7 @@ function renderSearchList(ev) {
         editTaskBtn.className = "tool-btn edit-task-btn";
         editTaskBtn.id = `edit-${index}`;
         const editSign = document.createElement("i");
-        editSign.className = "fa-regular fa-pencil";
+        editSign.className = "fa-light fa-pencil";
         editSign.id = `edit-sign-${index}`;
         editTaskBtn.appendChild(editSign);
 
