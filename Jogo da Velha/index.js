@@ -121,16 +121,15 @@ const findWinnerIndex = (currentPlayer) => {
 
 function setWinnerClass(winningCombinationsIndex) {
   const cellElements = document.querySelectorAll("[data-cell]");
-  for (let i = 0; i < 9; i++) {
-    var cell = cellElements[i];
+  let cell = document.querySelector("[data-cell]");
+  for (cell of cellElements) {
+    winningCombinations[winningCombinationsIndex].map((index) => {
+      if (cell.id.slice(-1) == index) {
+        console.log(cell);
+        cell.classList.add("winner");
+      }
+    });
   }
-
-  winningCombinations[winningCombinationsIndex].map((index) => {
-    if (cell.id.slice(-1) === index) {
-      console.log(cell);
-      cell.classList.add("winner");
-    }
-  });
 }
 
 const checkforDraw = (isWinner, cont) => {
@@ -224,6 +223,8 @@ function restartGame(ev) {
       cell.classList.remove("o");
       cell.innerText = "";
     }
+
+    cell.classList.remove('winner')
   }
   const playerX = document.querySelector("#x");
   const playerO = document.querySelector("#o");
@@ -252,19 +253,16 @@ function handleClick(e) {
   // verify victory
   const isWinner = checkForWin(classToAdd);
   const winnerIndex = findWinnerIndex(classToAdd);
-  if (winnerIndex > -1) {
-    setWinnerClass(winnerIndex);
-  } else {
-  }
 
   // verify draw
   const isDraw = checkforDraw(isWinner, cont);
 
   // game over screen
   if (isWinner) {
+    setWinnerClass(winnerIndex);
     setTimeout(() => {
       winnerScreen(cell);
-    }, 3000);
+    }, 1500);
   } else if (isDraw) {
     drawScreen(cell);
   } else {

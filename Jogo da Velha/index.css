@@ -134,7 +134,7 @@ button:hover {
   margin: 2rem;
 }
 
-.cell {
+.cell, .winner, .x, .o {
   border: 1px solid whitesmoke;
   width: 100px;
   height: 100px;
@@ -144,6 +144,17 @@ button:hover {
   font-size: 5rem;
   text-transform: uppercase;
   color: whitesmoke;
+}
+
+#cell {
+  cursor: pointer;
+}
+
+.x, .o {
+  cursor: not-allowed;
+}
+.winner {
+  background-color: rgb(0, 153, 255);
 }
 
 /* Winner & draw Screens */
