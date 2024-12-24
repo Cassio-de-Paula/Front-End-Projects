@@ -70,8 +70,6 @@ function dateFormat(date) {
 function showTaskList(ev) {
   ev.preventDefault();
 
-  console.log(taskArray);
-
   taskList.classList.add("showing");
   taskList.classList.remove("hidden");
 

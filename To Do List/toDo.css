@@ -10,7 +10,7 @@
 }
 
 body {
-  background-image: url('/imgs/1243346.png') !important;
+  background-image: url('./imgs/1243346.png') !important;
 }
 
 /* Containers */
@@ -294,20 +294,21 @@ i {
 
 .to-do-container,
 .edit-area-container,
-.search-result, .task-list {
+.search-result,
+.task-list {
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.35);
 }
 
 /* scrollbar */
 
-html ::-webkit-scrollbar{
+html ::-webkit-scrollbar {
   width: 7px;
 }
+
 /* html ::-webkit-scrollbar-thumb{
   width: 3px;
 }
 html ::-webkit-scrollbar{
   width: 3px;
 } */
-
